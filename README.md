@@ -9,6 +9,7 @@ Registro de Tópicos: ✍️ Permite a los usuarios crear nuevos tópicos con fa
 Listado de Tópicos: 📜 Visualiza todos los tópicos registrados de forma clara y organizada.
 Actualización de Tópicos: 🔄 Permite a los usuarios modificar la información de cualquier tópico existente.
 Eliminación de Tópicos: 🗑️ Permite a los usuarios eliminar tópicos específicos de manera segura.
+
 Características Adicionales:
 
 Seguridad Avanzada: 🔒 Implementación robusta de autenticación para proteger los datos sensibles.
