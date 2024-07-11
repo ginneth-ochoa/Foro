@@ -1,50 +1,77 @@
 package com.aluracurso.foro.usuario;
 
-import com.aluracurso.foro.topicos.Topico;
+import com.aluracurso.foro.Perfil;
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
+@Table(name = "usuarios")
 @Entity(name = "Usuario")
-@Table(name = "usuario")
-public class Usuario {
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
-    @Column(name = "perfil")
-    private String perfil;
+    @Column(unique = true)
+    private String login;
 
-    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Topico> topicos = new ArrayList<>();
+    private String contrasena;
 
-    // Constructor por defecto
-    public Usuario() {
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority ("ROLE_USER"));
     }
 
-    // Getters y Setters
-    public Long getId() {
-        return id;
+    @Override
+    public String getPassword() {
+        return contrasena;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public String getUsername() {
+        return login;
     }
 
-    public String getPerfil() {
-        return perfil;
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
     }
 
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
     }
 
-    public List<Topico> getTopicoss() {
-        return topicos;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
     }
 
-    public void setTopicoss(List<Topico> topicos) {
-        this.topicos = topicos;
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
+
+    /*@ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "usuario_perfil",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "perfil_id")
+    )
+    private Set<Perfil> perfiles;*/
 }
