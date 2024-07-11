@@ -16,3 +16,5 @@ Listar Tópicos: Permite a los usuarios ver todos los tópicos registrados.
 Actualizar Tópicos: Permite a los usuarios actualizar la información de un tópico existente.
 
 Eliminar Tópicos: Permite a los usuarios eliminar un tópico específico.
+
+Todo lo anterior por medio de una autentificacion de usuario.
